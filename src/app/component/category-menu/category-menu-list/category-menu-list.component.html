@@ -1,0 +1,53 @@
+<div class="spacer"></div>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-list-alt"></i> Menu Categorías
+        </div>
+  
+        <div class="card-body">
+            <div class="alert alert-danger" role="alert" *ngIf="error"
+            >{{message}}</div>
+            <div class="alert alert-success" role="alert" *ngIf="success"
+            >{{message}}</div> 
+            <i class="fa fa-spinner fa-spin" *ngIf="isLoader" style="font-size:30px"></i>
+            <div >
+              <span>Buscar categoría </span>
+              <input type="text" (keyup)="onKey($event)" 
+               class="form-control"  placeholder="buscar"
+              class="form-control input-sm" style="display: inline-block;width: 40%;">
+            </div>
+          <data-table id="persons-grid"
+          [limit]="limit"
+          [items]="items"
+          [itemCount]="itemCount"
+          (reload)="reloadItems($event)"
+          >
+          <data-table-column
+              property="categoryName"
+              header="Nombre"
+              [sortable]="true"
+            [resizable]="true"
+          >
+          </data-table-column>
+          <data-table-column
+              property="idCategory"
+              header="Acciones"
+            [sortable]="true"
+            [resizable]="true"
+          >
+          <ng-template #dataTableCell let-item="item">
+              <button  class="btn btn-warning" ><i class="icon-pencil"></i>&nbsp; Editar</button>
+              <button  class="btn btn-danger" (click)="deleted(item)"><i class="icon-trash"></i>&nbsp; Eliminar</button>
+          </ng-template>
+          </data-table-column>
+      </data-table> 
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+  <app-category-menu-add></app-category-menu-add>
+  </div>
+</div>        

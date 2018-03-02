@@ -1,0 +1,35 @@
+<div class="spacer"></div>
+<div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <strong>Crear</strong>
+            <small>categoría</small>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="formCategory" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="company">Nombre de la categoría</label>
+              <input type="text" class="form-control" formControlName="name"
+                placeholder="nombre">
+                <p class="errorsMsg" *ngIf="errorsForm.name">
+                    {{ errorsForm.name }}
+                </p>
+                <div class="spacer"></div>
+                <div class="alert alert-danger" role="alert"
+                *ngIf="error">{{message}}</div>  
+                <div class="alert alert-success" role="alert"
+                *ngIf="success">{{message}}</div>  
+            </div>
+            <button type="submit" [disabled]="!formCategory.valid"
+               class="btn btn-success btn-lg btn-block">
+                <i class="fa fa-floppy-o" *ngIf="!isLoader"></i>
+                <i class="fa fa-circle-o-notch fa-spin" *ngIf="isLoader" style="font-size:24px"></i>
+                &nbsp;Guardar</button>
+           </form>     
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 

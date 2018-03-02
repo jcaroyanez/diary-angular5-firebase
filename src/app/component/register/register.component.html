@@ -1,0 +1,52 @@
+<div class="app flex-row align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card mx-4">
+          <div class="card-body p-4">
+            <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
+            <h1>Register</h1>
+            <p class="text-muted">Create your account</p>
+            <div class="input-group mb-3">
+              <span class="input-group-addon"><i class="icon-user"></i></span>
+              <input type="text" class="form-control" formControlName="name" placeholder="Nombre">
+            </div>
+            <p class="errorsMsg" *ngIf="errorsForm.name" >{{errorsForm.name}}</p>
+
+            <div class="input-group mb-3">
+              <span class="input-group-addon">@</span>
+              <input type="text" class="form-control" formControlName="email"  placeholder="Email">
+            </div>
+            <p class="errorsMsg" *ngIf="errorsForm.email" >{{errorsForm.email}}</p>
+
+            <div class="input-group mb-3">
+              <span class="input-group-addon"><i class="icon-lock"></i></span>
+              <input type="password" class="form-control" formControlName="password" placeholder="Password">
+            </div>
+            <p class="errorsMsg" *ngIf="errorsForm.password" >{{errorsForm.password}}</p>
+
+            <button type="submit" class="btn btn-block btn-success" [disabled]="!formRegister.valid">
+                <i class="fa fa-circle-o-notch fa-spin" *ngIf="isLoading"
+                style="font-size:20px;margin-left:5px"></i>
+              Create Account</button>
+            <br>
+            <div *ngIf="success"  class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                <strong>{{message}}</strong> 
+           </div>
+           <div *ngIf="error"  class="alert alert-danger alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              <strong>{{message}}</strong> 
+          </div>
+          </form>
+          <div class="log-in-content"><button class="btn btn-link" type="button" routerLink="/login"><i class="fa fa-users"></i>&nbsp; Log in</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

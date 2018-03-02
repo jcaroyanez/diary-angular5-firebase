@@ -1,0 +1,9 @@
+.log-in-content{
+    width: 100%;
+    text-align: center;
+}
+
+.log-in-content > button {
+    text-decoration: none;
+    font-size: 18px;
+}
