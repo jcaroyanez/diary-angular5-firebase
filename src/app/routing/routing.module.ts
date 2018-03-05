@@ -28,6 +28,9 @@ export const routes:Routes = [
       {
         path:'categoryMenu',
         loadChildren:'../component/category-menu/category-menu.module#CategoryMenuModule'
+      },{
+        path:'contacts',
+        loadChildren:'../component/contacts/contacts.module#ContactsModule'
       }
   ],canActivate:[AuthGuardService]
    },

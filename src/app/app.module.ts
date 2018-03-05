@@ -16,6 +16,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CategoryMenuModule } from './component/category-menu/category-menu.module';
+import { ContactsModule } from '../app/component/contacts/contacts.module';
 import { RoutingModule } from './routing/routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -61,6 +62,7 @@ const APP_DIRECTIVES = [
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     CategoryMenuModule, 
+    ContactsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
