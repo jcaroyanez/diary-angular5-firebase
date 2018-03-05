@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormControl,FormBuilder,FormGroup,Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit,OnChanges {
   error:boolean;
   message:string;
   isLoading:boolean;
+  returnUrl: string;
   
   errorsForm = {
     'email':'',
@@ -32,7 +33,12 @@ export class LoginComponent implements OnInit,OnChanges {
     }
   }
 
-  constructor(private _formBuilder:FormBuilder, private _router:Router, private _authService:AuthService){
+  constructor(private _formBuilder:FormBuilder, private _router:Router, private _authService:AuthService, private _route:ActivatedRoute){
+    this._authService.isAuth().then((rest:any) => {
+      if(rest.success){
+        this._router.navigate(['/dashboard']);
+      }
+    });
 
     this.error = false;
     this.isLoading = false;
@@ -53,6 +59,8 @@ export class LoginComponent implements OnInit,OnChanges {
 
 
   ngOnInit() {
+    this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/dashboard';
+    console.log(this.returnUrl);
   }
 
   onSubmit(){
@@ -64,7 +72,7 @@ export class LoginComponent implements OnInit,OnChanges {
    };
    this._authService.logIn(user).then((rest:any) => {
      if(rest.success){
-      this._router.navigate(['/dashboard']);
+      this._router.navigate([this.returnUrl]);
      }else{
        this.isLoading = false;
        this.error = true;

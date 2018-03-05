@@ -6,6 +6,7 @@ import { LoginComponent } from '../component/login/login.component';
 import { NoUrlComponent } from '../component/no-url/no-url.component';
 import { DashboardComponent } from '../layout/dashboard/dashboard.component';
 import { RegisterComponent } from '../component/register/register.component';
+import { AuthGuardService } from '../services/auth-guard.service';
 
 export const routes:Routes = [
   {
@@ -28,7 +29,8 @@ export const routes:Routes = [
         path:'categoryMenu',
         loadChildren:'../component/category-menu/category-menu.module#CategoryMenuModule'
       }
-  ]},
+  ],canActivate:[AuthGuardService]
+   },
   {
       path:'**',component:NoUrlComponent
   },  

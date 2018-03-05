@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -71,7 +72,8 @@ const APP_DIRECTIVES = [
     UsersService,
     AngularFireAuth,
     AngularFireDatabase,
-    AuthService
+    AuthService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
