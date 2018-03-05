@@ -32,4 +32,17 @@ export class AuthService {
     return promise;
   }
 
+  isAuth(){
+    const promise = new Promise((resolve,reject) => {
+      this._angularFireAuth.authState.subscribe((data) => {
+        if(data == null){
+           resolve({success:false});
+        }else{
+          resolve({success:true});
+        }
+      });
+    });
+    return promise;
+  }
+
 }

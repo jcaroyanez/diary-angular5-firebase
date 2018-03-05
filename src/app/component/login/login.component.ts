@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormControl,FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.css'],
   host: {'class': 'login-page'}
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnChanges {
 
   formLogin:FormGroup;
   error:boolean;
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(private _formBuilder:FormBuilder, private _router:Router, private _authService:AuthService){
-   
+
     this.error = false;
     this.isLoading = false;
 
@@ -46,6 +46,11 @@ export class LoginComponent implements OnInit {
     this.onValueChanged();
 
   }
+
+  ngOnChanges(){
+
+  }
+
 
   ngOnInit() {
   }
@@ -89,6 +94,5 @@ export class LoginComponent implements OnInit {
        }
      }
    }
-
 
 }
