@@ -9,40 +9,54 @@
           <small>Contacto</small>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="formContact" (ngSubmit)="onSubmit()" >
             <div class="form-group row">
               <div class="col-md-12">
                 <div class="input-group">
                   <span class="input-group-addon">
                     <i class="fa fa-user"></i>
                   </span>
-                  <input type="text" id="input1-group1" name="input1-group1" class="form-control" placeholder="nombre">
+                  <input type="text" id="input1-group1" name="input1-group1" class="form-control" formControlName="name" placeholder="nombre">
                 </div>
               </div>
             </div>
+            <p class="errorsMsg" *ngIf="errorsForm.name">
+              {{ errorsForm.name }}
+            </p>
             <div class="form-group row">
               <div class="col-md-12">
                 <div class="input-group">
                   <span class="input-group-addon">
                     <i class="fa fa-mobile"></i>
                   </span>
-                  <input type="text" id="input1-group1" name="input1-group1" class="form-control" placeholder="Celular">
+                  <input type="text" id="input1-group1" name="input1-group1" class="form-control" formControlName="cel" placeholder="Celular">
                 </div>
               </div>
             </div>
+            <p class="errorsMsg" *ngIf="errorsForm.cel">
+              {{ errorsForm.cel }}
+            </p>
             <div class="form-group row">
               <div class="col-md-12">
                 <div class="input-group">
                   <span class="input-group-addon">
                     <i>@</i>
                   </span>
-                  <input type="text" id="input1-group1" name="input1-group1" class="form-control" placeholder="correo">
+                  <input type="email" id="input1-group1" name="input1-group1" class="form-control" formControlName="email" placeholder="correo">
                 </div>
               </div>
             </div>
-            <button type="submit"
-            class="btn btn-success btn-lg btn-block">
-             &nbsp;Guardar</button>
+            <p class="errorsMsg" *ngIf="errorsForm.email">
+              {{ errorsForm.email }}
+            </p>
+            <div class="spacer"></div>
+            <div class="alert alert-danger" role="alert"
+            *ngIf="error">{{message}}</div>  
+            <div class="alert alert-success" role="alert"
+            *ngIf="success">{{message}}</div> 
+            <button type="submit" [disabled]="!formContact.valid" class="btn btn-success btn-lg btn-block">
+                <i class="fa fa-circle-o-notch fa-spin" *ngIf="isLoader" style="font-size:24px"></i>
+              &nbsp;Guardar</button>
           </form>
         </div>
       </div>

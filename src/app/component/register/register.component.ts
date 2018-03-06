@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl,FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -35,7 +36,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  constructor(public formBuilder:FormBuilder, public _usersService:UsersService){
+  constructor(public formBuilder:FormBuilder, public _usersService:UsersService, private _authService:AuthService){
     this.isLoading = false;
     this.formRegister = this.formBuilder.group({
       'name':['',Validators.required],
@@ -69,6 +70,7 @@ export class RegisterComponent implements OnInit {
       this.success = true;
       this.message = rest.message;
       this.formRegister.reset();
+      this._authService.logoutAux();
     }).catch((error:any) => {
       this.isLoading = false;
       this.error = true;

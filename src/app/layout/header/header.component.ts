@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ContactService } from '../../services/contact.service';
 
 @Component({
   selector: 'app-header',
@@ -9,9 +10,17 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private _router:Router, private _authService:AuthService) { }
+  listNotifycation = [];
+
+  constructor(private _router:Router, private _authService:AuthService,private _contactService:ContactService) { }
 
   ngOnInit() {
+    this._contactService.getNotifycation();
+    this._contactService.eventNotify.subscribe(data => {
+      this.listNotifycation = [];
+      this.listNotifycation = data;
+      console.log(this.listNotifycation);
+    });
   }
 
   

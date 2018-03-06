@@ -54,6 +54,10 @@ export class AuthService {
     return promise;
   }
 
+  logoutAux(){
+    this._angularFireAuth.auth.signOut();
+  }
+
   isAuth(){
     const promise = new Promise((resolve,reject) => {
       this._angularFireAuth.authState.subscribe((data) => {
