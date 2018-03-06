@@ -19,7 +19,6 @@ export class HeaderComponent implements OnInit {
     this._contactService.eventNotify.subscribe(data => {
       this.listNotifycation = [];
       this.listNotifycation = data;
-      console.log(this.listNotifycation);
     });
   }
 
@@ -27,9 +26,7 @@ export class HeaderComponent implements OnInit {
   public disabled = false;
   public status: {isopen: boolean} = {isopen: false};
  
-  public toggled(open: boolean): void {
-   console.log('Dropdown is now: ', open);
-  }
+  public toggled(open: boolean): void {}
  
   public toggleDropdown($event: MouseEvent): void {
     $event.preventDefault();

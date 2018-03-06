@@ -4,13 +4,14 @@ import { ContactsAddComponent } from '../contacts/contacts-add/contacts-add.comp
 import { ContactsMenuRoutingModule } from '../contacts/contacts-routing.module';
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-
+import { DataTableModule } from '../data-table';
 @NgModule({
   imports: [
     CommonModule,
     ContactsMenuRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTableModule
   ],
   declarations: [ContactsAddComponent, ContactsListComponent]
 })

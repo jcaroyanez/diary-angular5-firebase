@@ -6,6 +6,35 @@
         <div class="card-header">
           <i class="fa fa-list-alt"></i> Contactos
         </div>
+        <div class="card-body">
+           <div>
+              <span>Buscar contacto </span>
+              <input type="text" (keyup)="onKey($event)" 
+              class="form-control"  placeholder="buscar"
+              class="form-control input-sm" style="display: inline-block;width: 40%;">
+           </div>
+            <data-table id="persons-grid"
+            [limit]="limit"
+            [items]="items"
+            [itemCount]="itemCount"
+            (reload)="reloadItems($event)"
+            >
+            <data-table-column
+                property="name"
+                header="Nombre"
+                [sortable]="true"
+              [resizable]="true"
+            >
+            </data-table-column>
+            <data-table-column
+                property="email"
+                header="Correo"
+              [sortable]="true"
+              [resizable]="true"
+            >
+            </data-table-column>
+        </data-table> 
+        </div>
       </div>
     </div>
   </div>

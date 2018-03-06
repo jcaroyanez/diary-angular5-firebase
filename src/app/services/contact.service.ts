@@ -2,14 +2,17 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class ContactService {
-  
-  eventNotify =  new BehaviorSubject<any[]>([]);
+
+  eventNotify = new BehaviorSubject<any[]>([]);
+  evenContacts = new BehaviorSubject<any[]>([]);
   userSendNotify: any;
   listNotification = [];
+  listContacts = [];
+  uid: any;
 
   constructor(private _angularFireDatabase: AngularFireDatabase, private _angularFireAuth: AngularFireAuth) { }
 
@@ -31,10 +34,10 @@ export class ContactService {
               message: this._angularFireAuth.auth.currentUser.displayName + " te a agreadodo a sus contactos",
               timestamp: firebase.database.ServerValue.TIMESTAMP
             }).then(() => {
-               resolve({success:true});
+              resolve({ success: true });
             });
           } else {
-              resolve({success:true});
+            resolve({ success: true });
           }
         });
       })
@@ -42,17 +45,39 @@ export class ContactService {
     return promise;
   }
 
-  getNotifycation(){
-     this._angularFireDatabase.database.ref('/notifications').child(firebase.auth().currentUser.uid).on('value',(datasnapshot) => {
-       this.listNotification = [];
-       const aux = datasnapshot.val();
-       for(var key in aux){
-          const time = new Date(aux[key].timestamp);
-          aux[key].time = time.getDate() + '/' + (time.getMonth()+1) + '/' + time.getFullYear()+' '+time.getHours()+':'+time.getMinutes();
-          this.listNotification.push(aux[key]);     
-       }
-       this.eventNotify.next(this.listNotification);
-     });
+  getNotifycation() {
+    firebase.auth().onAuthStateChanged((user: any) => {
+      if (user) {
+        this._angularFireDatabase.database.ref('/notifications').child(user.uid).on('value', (datasnapshot) => {
+          this.listNotification = [];
+          const aux = datasnapshot.val();
+          for (var key in aux) {
+            const time = new Date(aux[key].timestamp);
+            aux[key].time = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear() + ' ' + time.getHours() + ':' + time.getMinutes();
+            this.listNotification.push(aux[key]);
+          }
+          this.eventNotify.next(this.listNotification);
+        });
+      }
+    });
+
+  }
+
+  getAllContacts() {
+    firebase.auth().onAuthStateChanged((user: any) => {
+      if (user) {
+        this._angularFireDatabase.database.ref('/contact').child(this._angularFireAuth.auth.currentUser.uid).on('value', (datasnapshot) => {
+          this.listContacts = [];
+          const aux = datasnapshot.val();
+          for (var key in aux) {
+            aux[key].uid = key;
+            this.listContacts.push(aux[key]);
+          }
+          this.evenContacts.next(this.listContacts);
+        });
+      }
+    });
+
   }
 
 }
