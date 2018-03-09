@@ -28,6 +28,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireDatabase } from 'angularfire2/database';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {
   AsideToggleDirective,
@@ -68,7 +69,8 @@ const APP_DIRECTIVES = [
     ReactiveFormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(CONFIG_FIREBASE),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    NgbModule.forRoot()
   ],
   providers: [
     MenuCategoryService,

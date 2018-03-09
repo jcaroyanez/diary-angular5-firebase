@@ -33,9 +33,57 @@
               [resizable]="true"
             >
             </data-table-column>
+            <data-table-column
+            property="email"
+            header="Acciones"
+           [sortable]="true"
+           [resizable]="true"
+           >
+            <ng-template #dataTableCell let-item="item">
+             <button  class="btn btn-default" style="background-color:#FFEB3B" (click)="open(content,item)">
+               <i class="icon-bell"></i>&nbsp; Enviar mensaje</button>
+            </ng-template>
+           </data-table-column>
         </data-table> 
         </div>
       </div>
     </div>
   </div>
+  <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" style="text-align: center;width: 100%">{{contact.name}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-envelope"></i>
+                    </span>
+                    <input type="text" id="input1-group1" name="input1-group1" class="form-control" placeholder="Asunto" [(ngModel)]="affair">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-comment-o"></i>
+                      </span>
+                      <textarea  id="input1-group1" name="input1-group1" class="form-control" [(ngModel)]="body"
+                                 style="height: 110px" placeholder="Contenido"></textarea>
+                    </div>
+                  </div>
+                </div>
+          </form>
+      </div>
+      <div class="modal-footer" style="display: block">
+        <button type="button" class="btn btn-success" (click)="sendMessage()" style="float: left">Enviar</button>
+        <button type="button" class="btn btn-outline-dark" style="float: right">Close</button>
+      </div>
+    </ng-template>
 </div>

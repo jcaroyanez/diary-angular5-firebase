@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ContactService } from '../../services/contact.service';
@@ -8,9 +8,11 @@ import { ContactService } from '../../services/contact.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit,OnDestroy {
+
 
   listNotifycation = [];
+  listMessages = [];
 
   constructor(private _router:Router, private _authService:AuthService,private _contactService:ContactService) { }
 
@@ -20,6 +22,14 @@ export class HeaderComponent implements OnInit {
       this.listNotifycation = [];
       this.listNotifycation = data;
     });
+    this._contactService.getAllMessages();
+    this._contactService.evenMessages.subscribe(data => {
+      this.listMessages = data;
+    })
+  }
+
+  ngOnDestroy() {
+    //this._contactService.evenMessages.unsubscribe();
   }
 
   

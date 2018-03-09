@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ContactService } from '../../../services/contact.service';
 import { DataTableResource } from '../../data-table';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-contacts-list',
@@ -8,8 +9,9 @@ import { DataTableResource } from '../../data-table';
   styleUrls: ['./contacts-list.component.css']
 })
 export class ContactsListComponent implements OnInit, OnDestroy {
-
-
+ 
+  closeResult: string;
+  contact:any;
   listContacts = [];
   listContactsAux = [];
   finishParams: any;
@@ -18,7 +20,10 @@ export class ContactsListComponent implements OnInit, OnDestroy {
   public itemCount: number = 0;
   public itemResource;
 
-  constructor(private _contactService: ContactService) {
+  affair:string;
+  body:string;
+
+  constructor(private _contactService: ContactService,private modalService: NgbModal) {
       this._contactService.getAllContacts();
    }
   
@@ -61,6 +66,31 @@ export class ContactsListComponent implements OnInit, OnDestroy {
         return true;
       }return false;  
     });
+  }
+
+  open(content,contact) {
+    this.contact = contact;
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+
+  sendMessage(){
+    this._contactService.sendMessage(this.affair,this.body,this.contact);
+    this.affair = "";
+    this.body = "";
   }
 
 }
