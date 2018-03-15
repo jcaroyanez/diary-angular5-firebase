@@ -13,6 +13,7 @@ import { DataTableModule } from '../data-table';
     ReactiveFormsModule,
     DataTableModule
   ],
-  declarations: [ContactsAddComponent, ContactsListComponent]
+  declarations: [ContactsAddComponent, ContactsListComponent],
+  exports:[ContactsListComponent]
 })
 export class ContactsModule { }
